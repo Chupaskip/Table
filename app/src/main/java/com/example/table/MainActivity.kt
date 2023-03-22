@@ -56,17 +56,25 @@ class MainActivity : AppCompatActivity() {
                     counterOfFilledCells = 0
                     sum = 0
                 }
+                for (i in 0 until arraySums.size-1) {
+                    for (j in i+1 until arraySums.size){
+                        if (arraySums[i] == arraySums[j]) {
+                            arraySums[j] = 0
+                        }
+                    }
+                }
                 arraySums.sortDescending()
                 for (i in 1 until rowCount) {
                     val row = binding.table.getChildAt(i) as? TableRow
                     val tvPlaceOfMember = (row?.getChildAt(10) as? TextView)
-                    val sumOfPointsOfMember = (row?.getChildAt(9) as? TextView)?.text.toString().let {
-                        if(it!="")
-                            it.toInt()
-                        else
-                            0
-                    }
-                    if (counterOfFilledMembers==7) {
+                    val sumOfPointsOfMember =
+                        (row?.getChildAt(9) as? TextView)?.text.toString().let {
+                            if (it != "")
+                                it.toInt()
+                            else
+                                0
+                        }
+                    if (counterOfFilledMembers == 7) {
                         val place = arraySums.indexOf(sumOfPointsOfMember) + 1
                         tvPlaceOfMember?.text = place.toString()
                     } else {
